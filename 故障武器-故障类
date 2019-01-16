@@ -1,0 +1,52 @@
+  @Id
+	@GeneratedValue(strategy = UuidStrategy.class)
+	@NotNull(groups = {Edit.class}, message = "缺少Id")
+	@NotEmpty(groups = {Edit.class}, message = "缺少Id")
+	private String id;
+	
+	@NotNull(groups = {Create.class}, message = "缺少故障标题")
+	@NotEmpty(groups = {Create.class}, message = "缺少故障标题")
+	private String issueTitle;
+	
+	@NotNull(groups = {Create.class}, message = "缺少主体Id")
+	@NotEmpty(groups = {Create.class}, message = "缺少主体Id")
+	private String mainBodyId;
+	
+	@NotNull(groups = {Create.class}, message = "缺少主体编号")
+	@NotEmpty(groups = {Create.class}, message = "缺少主体编号")
+	private String mainBodyInnerSn;
+	
+	@NotNull(groups = {Create.class}, message = "缺少故障发生时间")
+	private Long reportTime;
+	
+	@NotNull(groups = {Create.class}, message = "缺少故障发生阶段")
+	@NotEmpty(groups = {Create.class}, message = "缺少故障发生阶段")
+	private String issueOccurStage;
+	
+	@NotNull(groups = {Create.class}, message = "缺少故障描述")
+	@NotEmpty(groups = {Create.class}, message = "缺少故障描述")
+	private String issusDescribe;
+	
+	@NotNull(groups = {Create.class}, message = "缺少临时解决方案")
+	@NotEmpty(groups = {Create.class}, message = "缺少临时解决方案")
+	private String temporarySolution;
+	
+	private List<String> labels = new ArrayList<>();
+	
+	private Boolean finished;
+	
+	@Valid
+	@Relationship(type = "ISSUE_DEVICES", direction = Relationship.OUTGOING)
+	private Set<IssueDevice> issueDevices = new HashSet<>();
+	
+	@Valid
+	@Relationship(type = "REMOVED_DEVICES", direction = Relationship.OUTGOING)
+	private Set<IssueDevice> removedDevices = new HashSet<>();
+	
+	@Valid
+	@Relationship(type = "INSTALLED_DEVICES", direction = Relationship.OUTGOING)
+	private Set<IssueDevice> installedDevices = new HashSet<>();
+	
+	@JsonIgnore
+	@Relationship(type = "ANWSERS", direction = Relationship.OUTGOING)
+	private List<Comment> comments = new ArrayList<>();
