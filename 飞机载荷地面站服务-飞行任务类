@@ -1,0 +1,43 @@
+  @Id
+	@GeneratedValue(strategy = UuidStrategy.class)
+	@NotNull(groups = {Edit.class}, message = "缺少Id")
+	@NotEmpty(groups = {Edit.class}, message = "缺少Id")
+	private String id;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "起飞时间不能为空")
+	private Long startTime;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "降落时间不能为空")
+	private Long endTime;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "起飞重量不能为空")
+	@Min(value = 1, groups = {Create.class, Edit.class}, message = "起飞重量必须大于0")
+	private Integer weight;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "飞机重心不能为空")
+	private Integer centreOfGravity;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "航程不能为空")
+	@Min(value = 1, groups = {Create.class, Edit.class}, message = "航程必须大于0")
+	private Integer voyage;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "起飞温度不能为空")
+	private Integer takeOffTemp;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "降落温度不能为空")
+	private Integer landingTemp;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "气压高度不能为空")
+	private Integer pressureAltitude;
+	
+	private String[] loadedWeapons;
+	
+	private String[] launchedWeapons;
+	
+	private Integer takeOffAngle;
+	
+	private String location;
+	
+	private String[] groundStations;
+	
+	private String payLoad;
