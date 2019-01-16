@@ -1,0 +1,39 @@
+  @Id
+	@GeneratedValue(strategy = UuidStrategy.class)
+	@NotNull(groups = {Edit.class}, message = "缺少Id")
+	@NotEmpty(groups = {Edit.class}, message = "缺少Id")
+	private String id;
+	
+	@NotEmpty(groups = {Create.class, Edit.class}, message = "合同名称不能为空")
+	@Pattern(groups = {Create.class, Edit.class}, regexp = "^[\\u4E00-\\u9FA5A-Za-z0-9_-]+$" , message = "名称含有非法字符")
+	private String name;
+	
+	@NotEmpty(groups = {Create.class, Edit.class}, message = "合同编号不能为空")
+	@Pattern(groups = {Create.class, Edit.class}, regexp = "^[A-Za-z0-9_-]+$" , message = "编号含有非法字符")
+	private String sn;
+	
+	@NotEmpty(groups = {Create.class, Edit.class}, message = "项目不能为空")
+	@Pattern(groups = {Create.class, Edit.class}, regexp = "^[A-Za-z0-9_-]+$" , message = "项目含有非法字符")
+	private String projectName;
+	
+	private boolean isFinished;
+	
+	@Relationship(type = "BELONG_TO", direction = Relationship.OUTGOING)
+	private Warehouse warehouse;
+	
+	//合同签订的交付物
+	@JSONField(serialize = false)
+	@Relationship(type = "CONTRACT_DEVICES", direction = Relationship.OUTGOING)
+	private List<DeviceInStock> contractDevices = new ArrayList<DeviceInStock>();
+	
+	@JSONField(serialize = false)
+	@Relationship(type = "EXTRA_DEVICES_BEFORE_EXPIRE", direction = Relationship.OUTGOING)
+	private List<DeviceInStock> freeExtraDevices = new ArrayList<DeviceInStock>();
+	
+	@JSONField(serialize = false)
+	@Relationship(type = "EXTRA_DEVICES_AFTER_EXPIRE", direction = Relationship.OUTGOING)
+	private List<DeviceInStock> waitForPayedExtraDevices = new ArrayList<DeviceInStock>();
+	
+	@JSONField(serialize = false)
+	@Relationship(type = "HAS_DETAILS", direction = Relationship.OUTGOING)
+	private Set<ContractDetail> details = new HashSet<>();
