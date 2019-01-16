@@ -1,0 +1,55 @@
+  @Id
+	@GeneratedValue(strategy = UuidStrategy.class)
+	@NotNull(groups = {Edit.class}, message = "缺少Id")
+	@NotEmpty(groups = {Edit.class}, message = "缺少Id")
+	private String id;
+	
+	@NotEmpty(groups = {Create.class, Edit.class}, message = "型号不能为空")
+	@Pattern(groups = {Create.class, Edit.class}, regexp = "^[A-Za-z0-9_-]+$" , message = "型号含有非法字符")
+	private String model;
+	
+	@NotEmpty(groups = {Create.class, Edit.class}, message = "内部编号不能为空")
+	@Pattern(groups = {Create.class, Edit.class}, regexp = "^[0-9]+$" , message = "内部编号含有非法字符")
+	private String inner_sn;
+	
+	@NotEmpty(groups = {Create.class, Edit.class}, message = "外部编号不能为空")
+	@Pattern(groups = {Create.class, Edit.class}, regexp = "^[0-9]+$" , message = "外部编号含有非法字符")
+	private String outside_sn;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "出厂日期不能为空")
+	private Long productDate;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "交付日期不能为空")
+	private Long deliveryDate;
+	
+	@NotEmpty(groups = {Create.class, Edit.class}, message = "当前状态不能为空")
+	private String status;
+	
+	@NotNull
+	@Min(value = 0, message = "挂点不能小于0")
+	@Max(value = 0, message = "挂点不能大于4")
+	private int weaponLoadAmount;
+	
+	private String jobGuideName;//对应jobGuide信息中基地名称属性
+	
+	private String jobGuideVersion;//对应jobGuide信息中基地版本属性
+	
+	private String currentLocation;//对应基地信息中基地Code属性
+	
+	private Float longitude;//对应基地信息中基地longitude属性
+	
+	private Float latitude;//对应基地信息中基地latitude属性
+	
+	private Float totalWorkTime = 0f;
+	
+	@JSONField(serialize = false)
+	@Relationship(type = "HAS_DEVICES", direction = Relationship.OUTGOING)
+	private Set<DeviceOnPlane> devices = new HashSet<>();
+	
+	@JSONField(serialize = false)
+	@Relationship(type = "HAS_WORKCARDS", direction = Relationship.OUTGOING)
+	private Set<WorkCard> workCards = new HashSet<>();
+	
+	@JSONField(serialize = false)
+	@Relationship(type = "HAS_FlightLogS", direction = Relationship.OUTGOING)
+	private Set<FlightLog> flightLogs = new HashSet<>();
