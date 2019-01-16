@@ -1,0 +1,35 @@
+
+	@Id
+	@GeneratedValue(strategy = UuidStrategy.class)
+	@NotNull(groups = {Edit.class}, message = "缺少Id")
+	@NotEmpty(groups = {Edit.class}, message = "缺少Id")
+	private String id;
+	
+	@NotEmpty(groups = {Create.class, Edit.class}, message = "缺少信息")
+	@Pattern(groups = {Create.class, Edit.class}, regexp = "^[A-Za-z-_]+$" , message = "名称包含非法字符")
+	private String name;
+	
+	@NotEmpty(groups = {Create.class, Edit.class}, message = "缺少信息")
+	@Pattern(groups = {Create.class, Edit.class}, regexp = "^[A-Za-z-_]+$" , message = "代号包含非法字符")
+	private String code;
+	
+	@NotEmpty(groups = {Create.class, Edit.class}, message = "缺少信息")
+	@Pattern(groups = {Create.class, Edit.class}, regexp = "^[A-Za-z]+$" , message = "国家包含非法字符")
+	private String nation;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "海拔不能为空")
+	private Integer altitude;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "经度不能为空")
+	@Range(min = -180, max = 180, groups = {Create.class, Edit.class}, message = "经度范围有误")
+	private Float longitude;
+	
+	@NotNull(groups = {Create.class, Edit.class}, message = "纬度不能为空")
+	@Range(min = -90, max = 90, groups = {Create.class, Edit.class}, message = "纬度范围有误")
+	private Float latitude;
+	
+	@Relationship(type = "HAS_RUNWAY", direction = Relationship.OUTGOING)
+	private Set<Runway> runWays = new HashSet<>();
+
+	
+}
