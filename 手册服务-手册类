@@ -1,0 +1,16 @@
+  @Id
+	@GeneratedValue(strategy = UuidStrategy.class)
+	@NotNull(groups = {Edit.class}, message = "缺少Id")
+	@NotEmpty(groups = {Edit.class}, message = "缺少Id")
+	private String id;
+	
+	@NotEmpty(groups = {Create.class, Edit.class}, message = "名称不能为空")
+	@Pattern(groups = {Create.class, Edit.class}, regexp = "^[A-Za-z0-9_-]+$" , message = "名称包含非法字符")
+	private String name;
+	
+	@NotEmpty(groups = {Create.class, Edit.class}, message = "版本不能为空")
+	@Pattern(groups = {Create.class, Edit.class}, regexp = "^[0-9.]+$" , message = "版本包含非法字符")
+	private String version;
+	
+	@Relationship(type = "HAS_WORKCARDS", direction = Relationship.OUTGOING)
+	private Set<WorkCard> workCards = new HashSet<>();
